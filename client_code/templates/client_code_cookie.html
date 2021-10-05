@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                cookie_text = "{{cookie_text}}";
+                get_cookie = "Your cookie is: " + "{{get_cookie}}";
+                $("#inputText").val(cookie_text);
+                $("#result").html(get_cookie);
+            });
+        </script>
+        <title>Generating Cookie</title>
+    </head>
+    <body>
+        <form id="setCookie" action="set_cookie" method="post">
+            <fieldset>
+                <legend>Generating Cookie</legend>
+                Cookie Value:
+                <input type="text" id="inputText" name="inputText">
+                <input type="submit" name="button" value="generate cookie">
+            </fieldset>
+        </form>
+
+        <h4>Generated Cookie</h4>
+        <hr>
+        <div id="result"></div>
+    </body>
+</html>
