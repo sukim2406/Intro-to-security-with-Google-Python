@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <style>
+            span{
+                background-color: #c1d9d8;
+            }
+        </style>
+        <title>API with Token</title>
+        <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+            var token;
+            $("[id^=getToken]").click(function(){
+                var myName = $("#inputText").val()
+                $.ajax({
+                    url: '/make_token',
+                    type: 'POST',
+                    data: JSON.stringify({my_name: myName}),
+                    headers: {'Content-Type': 'application/json'},
+                    success: function(response){
+                        token = response.token;
+                        $("#span1").html(response.token);
+                    }
+                });
+            });      
+            $("[id^=sendToken]").click(function(){
+                var myName = $("#inputText").val()
+                $.ajax({
+                    url: '/send_token',
+                    type: 'POST',
+                    data: JSON.stringify({my_name: myName}),
+                    headers: {'Content-Type': 'application/json'},
+                    headers: {Authorization: 'Bearer ' + token},
+                    success: function(response){
+                        $("#span2").html(response.my_name);
+                    }
+                });
+            });
+        });
+        </script>
+    </head>
+    <body>
+        <fieldset>
+            <legend>API Token</legend>
+            <input type="text" id="inputText" name="inputText">
+            <input type="button" align="left" id="getToken" value="Get Token">
+            <input type="button" align="left" id="sendToken" value="Send Token">
+            <br>
+            <span id="span1"></span>
+            <br><br>
+            <span id="span2"></span>
+        </fieldset>
+    </body>
+</html>
